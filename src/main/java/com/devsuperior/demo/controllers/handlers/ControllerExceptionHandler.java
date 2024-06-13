@@ -3,7 +3,6 @@ package com.devsuperior.demo.controllers.handlers;
 import com.devsuperior.demo.dto.CustomError;
 import com.devsuperior.demo.dto.ValidationError;
 import com.devsuperior.demo.services.exceptions.DatabaseException;
-import com.devsuperior.demo.services.exceptions.ForbidenException;
 import com.devsuperior.demo.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -38,12 +37,6 @@ public class ControllerExceptionHandler {
         for (FieldError f: e.getBindingResult().getFieldErrors()){
             error.addError(f.getField(),f.getDefaultMessage());
         }
-        return ResponseEntity.status(httpStatus).body(error);
-    }
-    @ExceptionHandler(ForbidenException.class)
-    public ResponseEntity<CustomError> forbiden(ForbidenException e,HttpServletRequest request){
-        HttpStatus httpStatus = HttpStatus.FORBIDDEN;
-        CustomError error = new CustomError(Instant.now(), httpStatus.value(), e.getMessage(),request.getRequestURI());
         return ResponseEntity.status(httpStatus).body(error);
     }
 }
