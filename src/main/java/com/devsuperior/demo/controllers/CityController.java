@@ -8,9 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cities")
@@ -24,5 +22,19 @@ public class CityController {
     public ResponseEntity<Page<CityDTO>> findAll(
             @PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
+    }
+
+    @PostMapping
+    public ResponseEntity<CityDTO> insert(@RequestBody CityDTO dto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<CityDTO> update(@PathVariable Long id,@RequestBody CityDTO dto){
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(id, dto));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
