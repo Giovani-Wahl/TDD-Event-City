@@ -1,4 +1,4 @@
-package com.devsuperior.demo.dto;
+package com.devsuperior.demo.controllers.handlers;
 
 import java.time.Instant;
 

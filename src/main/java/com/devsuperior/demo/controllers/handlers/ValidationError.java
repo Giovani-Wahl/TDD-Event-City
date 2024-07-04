@@ -1,10 +1,10 @@
-package com.devsuperior.demo.dto;
+package com.devsuperior.demo.controllers.handlers;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationError extends CustomError{
+public class ValidationError extends CustomError {
     public ValidationError(Instant timestamp, Integer status, String error, String path) {
         super(timestamp, status, error, path);
     }

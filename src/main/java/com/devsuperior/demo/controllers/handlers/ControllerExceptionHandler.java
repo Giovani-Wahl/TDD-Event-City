@@ -1,7 +1,5 @@
 package com.devsuperior.demo.controllers.handlers;
 
-import com.devsuperior.demo.dto.CustomError;
-import com.devsuperior.demo.dto.ValidationError;
 import com.devsuperior.demo.services.exceptions.DatabaseException;
 import com.devsuperior.demo.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
