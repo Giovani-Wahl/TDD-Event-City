@@ -7,11 +7,13 @@ import com.devsuperior.demo.services.exceptions.DatabaseException;
 import com.devsuperior.demo.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CityService {
@@ -22,9 +24,11 @@ public class CityService {
     }
 
     @Transactional(readOnly = true)
-    public Page<CityDTO> findAll(Pageable pageable){
-        Page<City> result = repository.findAll(pageable);
-        return result.map(CityDTO::new);
+    public List<CityDTO> findAll() {
+        List<City> cities = repository.findAll(Sort.by(Sort.Order.asc("name")));
+        return cities.stream()
+                .map(CityDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional
